@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Quiz</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <form action="/result" method="POST">
+    {% for q in questions %}
+      {% set q_index = loop.index0 %}
+      <p><b>{{ loop.index }}. {{ q['Question'] }}</b></p>
+
+      {% for option in ['Option A', 'Option B', 'Option C', 'Option D'] %}
+        <label>
+          <input type="radio" name="user_ans_{{ q_index }}" value="{{ q[option] }}" required>
+          {{ q[option] }}
+        </label><br>
+      {% endfor %}
+
+      <input type="hidden" name="correct_ans_{{ q_index }}" value="{{ q['Correct Answer'] }}">
+      <input type="hidden" name="question_text_{{ q_index }}" value="{{ q['Question'] }}">
+    {% endfor %}
+
+    <!-- Hidden input to tell backend how many questions were rendered -->
+    <input type="hidden" name="total" value="{{ questions|length }}">
+
+    <!-- Submit button -->
+    <br><button type="submit">Submit Quiz</button>
+  </form>
+</body>
+</html>

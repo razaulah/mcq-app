@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>MCQ Quiz App</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+  <h2>Select Quiz Options</h2>
+  <div class="horizontal-form">
+    <form action="/quiz" method="POST">
+      <div class="form-row">
+        <label>Grade:</label>
+        <select name="grade">
+          {% for grade in grades %}
+            <option value="{{ grade }}">{{ grade }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div class="form-row">
+        <label>Subject:</label>
+        <select name="subject">
+          {% for subject in subjects %}
+            <option value="{{ subject }}">{{ subject }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div class="form-row">
+        <label>No. of MCQs:</label>
+        <input type="number" name="num_questions" min="1" max="50" required>
+      </div>
+
+      <div class="form-row">
+        <button type="submit">Start Quiz</button>
+      </div>
+    </form>
+  </div>
+
+</body>
+</html>
